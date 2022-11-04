@@ -17,7 +17,7 @@ export const putDb = async (content) => {
   const contactDb = await openDB('jate', 1);
   const tx = contactDb.transaction('jate', 'readwrite');
   const store = tx.objectStore('jate');
-  const request = store.add({name: name, email: email, phone: phone, profile: profile});
+  const request = store.put({id:1, value: content});
   const result = await request;
   console.error('putDb not implemented');
   return result;
@@ -29,10 +29,10 @@ export const getDb = async () =>
   const contactDb = await openDB("jate", 1);
   const tx = contactDb.transaction("jate", "readonly");
   const store = tx.objectStore("jate");
-  const request = store.getAll();
+  const request = store.get(1);
   const result = await request;
   console.error('getDb not implemented');
-  return result;
+  return result?.value;
 };
 
 initdb();
